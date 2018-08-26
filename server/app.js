@@ -11,7 +11,7 @@ const io = socketIo(server);
 io.on("connection", socket => {
   console.log("New client connected"), setInterval(
     () => getApiAndEmit(socket),
-    5000
+    10000
   );
   socket.on("disconnect", () => console.log("Client disconnected"));
 });
@@ -20,7 +20,7 @@ const getApiAndEmit = async socket => {
     const res = await axios.get(
       "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD"
     );
-    socket.emit("FromAPI", res.data);
+	socket.emit("FromAPI", res.data);
   } catch (error) {
     console.error(`Error: ${error.code}`);
   }
